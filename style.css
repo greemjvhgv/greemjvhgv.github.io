@@ -1,17 +1,39 @@
-body{
-  margin: 0;
-  display: flex; 
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
 
+
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    font-family: Arial, sans-serif;
+}
+  
+li{
+    float: left;
+}
+  
+li a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+   
+li a:hover{
+    background-color: #111;
+}
+  
+
+/* Calculator 1 CSS */
 #calculator{
     font-family: Arial, sans-serif;
     background-color: rgb(21, 21, 21);
     border-radius: 15px;
     max-width: 500px;
     overflow: hidden;
+    justify-content: center;
 }
 
 #display{
@@ -20,8 +42,8 @@ body{
     font-size: 5rem;
     text-align: left;
     border: none;
-    background-color: rgb(30, 30, 30);;
-    color: white;
+    background-color: rgb(30, 30, 30);
+    color: rgb(255, 255, 255);
 }
 
 #keys{
@@ -59,4 +81,3 @@ button:active{
 .operator-btn:active{
     background-color: rgb(102, 52, 163);
 }
-
