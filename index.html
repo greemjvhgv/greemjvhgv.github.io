@@ -24,7 +24,6 @@
         <button onclick = "appendToDisplay('.')">.</button>
         <button onclick = "calculate()">=</button>
         <button onclick = "clearDisplay()" class = "operator-btn">C</button>
-    </div>
 </div>
 
 </body>
@@ -32,6 +31,7 @@
 
 <script>
     const display = document.getElementById("display");
+    display.style.color = 'black';
 
 function appendToDisplay(input){
     display.value += input;
@@ -49,4 +49,12 @@ function calculate(){
         display.value = "Error";
     }
 }
+
+const queryString = window.location.search;
+
+const urlParams = new URLSearchParams(queryString);
+
+const color = urlParams.get('color')
+display.style.backgroundColor = color;
+
 </script>
