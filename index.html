@@ -57,4 +57,21 @@ const urlParams = new URLSearchParams(queryString);
 const color = urlParams.get('color')
 display.style.backgroundColor = color;
 
+const doggo = urlParams.get('doggo')
+const isTrue = doggo === 'true';
+const isFalse = doggo === 'false';
+let booleanValue;
+
+const body = document.body;
+
+if (isTrue) {
+  booleanValue = true;
+    body.style.backgroundImage = "url('silly.png')";
+    body.style.backgroundSize = "cover";
+} else if (isFalse) {
+    booleanValue = false;
+} else {
+    booleanValue = false; 
+}
+
 </script>
