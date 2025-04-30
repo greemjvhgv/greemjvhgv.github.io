@@ -1,88 +1,95 @@
 <html>
 <head>
-    <link rel = "stylesheet" href = "style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<nav>
-     <a href="?">None</a>
-     <a href="?color=green">Green</a>
-     <a href="?color=red">Red</a>
-     <a href="?color=blue">Blue</a>
-     <a href="?color=yellow">Yellow</a>
-     <a href="?color=purple">Purple</a>
-     <a href="?doggo=true">Dog!</a>
-</nav>
+<form id="settingsForm" method="GET">
+  <div id="menu" class="menu">
+    <label for="displayColor">Display Color:</label>
+    <select id="displayColor" name="color" onchange="this.form.submit()">
+      <option value="">Default</option>
+      <option value="green">Green</option>
+      <option value="red">Red</option>
+      <option value="blue">Blue</option>
+      <option value="yellow">Yellow</option>
+      <option value="purple">Purple</option>
+    </select>
 
-<div id = "calculator"> 
-    <input id = "display" readonly>
-    <div id = "keys">
-        <button onclick = "appendToDisplay('+')" class = "operator-btn">+</button>
-        <button onclick = "appendToDisplay('7')">7</button>
-        <button onclick = "appendToDisplay('8')">8</button>
-        <button onclick = "appendToDisplay('9')">9</button>
-        <button onclick = "appendToDisplay('-')" class = "operator-btn">-</button>
-        <button onclick = "appendToDisplay('4')">4</button>
-        <button onclick = "appendToDisplay('5')">5</button>
-        <button onclick = "appendToDisplay('6')">6</button>
-        <button onclick = "appendToDisplay('*')" class = "operator-btn">*</button>
-        <button onclick = "appendToDisplay('1')">1</button>
-        <button onclick = "appendToDisplay('2')">2</button>
-        <button onclick = "appendToDisplay('3')">3</button>
-        <button onclick = "appendToDisplay('/')" class = "operator-btn">/</button>
-        <button onclick = "appendToDisplay('0')">0</button>
-        <button onclick = "appendToDisplay('.')">.</button>
-        <button onclick = "calculate()">=</button>
-        <button onclick = "clearDisplay()" class = "operator-btn">C</button>
+    <label for="bgColor">Background Color:</label>
+    <input type="color" id="bgColor" name="bg" onchange="this.form.submit()">
+
+    <label>
+      <input type="checkbox" id="dogToggle" name="doggo" value="true" onchange="this.form.submit()">
+      Dog!
+    </label>
+  </div>
+</form>
+
+<div class="calculator-container">
+  <div id="calculator"> 
+    <input id="display" readonly>
+    <div id="keys">
+      <button onclick="appendToDisplay('+')" class="operator-btn">+</button>
+      <button onclick="appendToDisplay('7')">7</button>
+      <button onclick="appendToDisplay('8')">8</button>
+      <button onclick="appendToDisplay('9')">9</button>
+      <button onclick="appendToDisplay('-')" class="operator-btn">-</button>
+      <button onclick="appendToDisplay('4')">4</button>
+      <button onclick="appendToDisplay('5')">5</button>
+      <button onclick="appendToDisplay('6')">6</button>
+      <button onclick="appendToDisplay('*')" class="operator-btn">*</button>
+      <button onclick="appendToDisplay('1')">1</button>
+      <button onclick="appendToDisplay('2')">2</button>
+      <button onclick="appendToDisplay('3')">3</button>
+      <button onclick="appendToDisplay('/')" class="operator-btn">/</button>
+      <button onclick="appendToDisplay('0')">0</button>
+      <button onclick="appendToDisplay('.')">.</button>
+      <button onclick="calculate()">=</button>
+      <button onclick="clearDisplay()" class="operator-btn">C</button>
+    </div>
+  </div>
 </div>
-
 
 </body>
 </html>
 
 <script>
-    const display = document.getElementById("display");
-    display.style.color = 'black';
 
-function appendToDisplay(input){
-    display.value += input;
+function appendToDisplay(input) {
+  display.value += input;
 }
 
-function clearDisplay(){
-    display.value = " ";
+function clearDisplay() {
+  display.value = "";
 }
 
-function calculate(){
-    try {
-        display.value = eval(display.value);
-    }
-    catch(error){
-        display.value = "Error";
-    }
+function calculate() {
+  try {
+    display.value = eval(display.value);
+  } catch (error) {
+    display.value = "Error";
+  }
 }
 
-const queryString = window.location.search;
+const display = document.getElementById("display");
+const params = new URLSearchParams(window.location.search);
 
-const urlParams = new URLSearchParams(queryString);
+if (params.has("color")) {
+  display.style.backgroundColor = params.get("color");
+  document.getElementById("displayColor").value = params.get("color");
+}
 
-const color = urlParams.get('color')
-display.style.backgroundColor = color;
+if (params.get("doggo") === "true") {
+  document.body.style.backgroundImage = "url('silly.jpg')";
+  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundPosition = "center";
+  document.getElementById("dogToggle").checked = true;
+}
 
-const doggo = urlParams.get('doggo')
-const isTrue = doggo === 'true';
-const isFalse = doggo === 'false';
-let booleanValue;
-
-const body = document.body;
-
-if (isTrue) {
-  booleanValue = true;
-    body.style.backgroundImage = "url('silly.png')";
-    body.style.backgroundSize = "cover";
-} else if (isFalse) {
-    booleanValue = false;
-} else {
-    booleanValue = false; 
+if (params.has("bg")) {
+  document.body.style.backgroundColor = params.get("bg");
+  document.getElementById("bgColor").value = params.get("bg");
 }
 
 </script>
